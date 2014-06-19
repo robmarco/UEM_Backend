@@ -1,0 +1,51 @@
+<% layout('../layout') -%>
+
+<!-- Container -->
+<div class="container" id="products">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Welcome to ClickChic!</h2>
+            <p class="lead">Find cool things, explore new fashion clothes, collect experiencies you love and buy it in the same site!</p>
+        </div>
+        
+        <div class="col-md-8 col-md-offset-2" id="tshirt-list">
+
+            <div id="add-products" class="well well-lg hidden">
+                <p class="lead text-center">We need to <a href="/product/new">add some products</a>! You can enjoy them soon!</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- /container -->
+
+<script type="text/javascript">
+
+    $(function(){
+        $.ajax({
+            url:"/api/products", 
+            type: "GET",
+            success: function(data, textStatus, xhr){
+                console.log("Data received");
+                console.log(data);
+                console.log("Status received " + xhr.status);
+            
+                var tshirts = data.tshirts;
+
+                if (tshirts.length == 0) {  
+                    $("#add-products").removeClass("hidden");
+                } else {
+                    $.each(tshirts, function(index, item) {            
+                        $("#tshirt-list").append("<div class='col-md-6'><div class='thumbnail' style='padding:10px;''><img class='product-image'><p style='margin-top: 20px;''><a href='/products/"+item._id+"'>"+item.model+"</a> <br><b>$ "+item.price+"</b> | Amazon.com +934</p></div></div>");
+                    });
+                }
+            },
+            error: function(){
+                alert("Server error after ajax request");
+            }
+        });
+    });
+    
+</script>
+

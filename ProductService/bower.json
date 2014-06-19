@@ -1,0 +1,14 @@
+{
+  "name": "product_service",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "holderjs": "~2.3.2",
+    "modernizr": "~2.8.2"
+  }
+}

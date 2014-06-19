@@ -1,0 +1,93 @@
+<% layout('../layout') -%>
+
+<div class="container" id="products">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<h2 class="text-center">This is your Shopcart!</h2>
+            <p class="lead text-center">Manage your products until you decide send it to our employees!</p>
+
+            <hr />
+
+            <div class="panel panel-default" style="margin-top: 40px;">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">List of your products <span id="itemsSize" class="pull-right">0 products added</span></h3>
+			  </div>
+			  <div class="panel-body">
+			    
+				<div class="row" id="kart">
+					<!-- KART CONTAINER -->
+				</div>
+
+			  </div>			  
+			  <div class="panel-footer">Total price <span id="totalAmount" class="pull-right">0 $</span></div>
+
+			</div>
+
+			<button id="checkout" class="btn btn-primary disabled">Checkout</button>
+
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	$(function() {
+		$.ajax({
+			url: "/api/kart/<%= user.id %>",
+			type: "GET",
+			success: function(data, textStatus, xhr) {
+				console.log("Data received");
+                console.log(data);
+                console.log("Status received " + xhr.status);
+
+                var products = data.items;
+
+                var kart_div = $("#kart");
+
+                if (products.length == 0) {
+                	kart_div.append("<div class='col-sm-12'><p>No products added yet!</p></div><div class='clearfix'></div>")
+                } else {
+
+                	var totalAmount = 0;
+                	var totalProducts = 0;
+                	
+                	$.each(products, function(index, product){
+                		
+                		totalAmount += parseInt(product);                		
+                		totalProducts += 1;
+
+                		$.ajax({
+                			url: "/api/products/"+index,
+                			type: "GET",
+                			success: function(data, textStatus, xhr){
+                				var response = data.tshirt;
+                				kart_div.append('<div class="col-sm-8"><dl><dt>'+response.model+'</a></dt><dd>'+response.description+'<br><a href="#" id="idProduct" value="'+index+'" onclick="removeItem()">(Remove)</a></dd></dl></div><div class="col-sm-2 text-right">1 units</div><dv class="col-sm-2 text-right">'+product+' $</dv>');	
+                			}
+                		});                		
+                	});					
+                	$("#totalAmount").text(totalAmount + " $");
+                	$("#itemsSize").text(totalProducts + " products added");                	
+                	$("#checkout").removeClass("disabled");
+                }
+
+			},
+			error: function() {
+				alert("Server error");
+			}
+		});
+	});
+
+	function removeItem() {
+		var idProduct = $("#idProduct").attr("value");
+
+		$.ajax({
+			url:"/api/kart/<%=user.id %>/"+idProduct,
+			type: "DELETE",
+			success: function (data, textStatus, xhr) {
+				console.log(data);
+				window.location.href = "/shopcart";
+			}
+		});
+	};
+
+</script>

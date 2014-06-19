@@ -1,0 +1,157 @@
+<% layout('../layout') -%>
+
+<!-- CAROUSEL
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+    <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item">
+      <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Example headline.</h1>
+          <p>Note: If you're viewing this page via a URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+          <p><a class="btn btn-lg btn-primary" href="/auth/google" role="button">Login with Google</a></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="item active">
+      <img data-src="holder.js/900x500/auto/#777:#7a7a7a/text:First slide" alt="First slide">
+      <div class="container">
+        <div class="carousel-caption">
+          <h1>Example headline.</h1>
+          <p>Note: If you're viewing this page via a URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+          <p><a class="btn btn-lg btn-primary" href="/auth/google" role="button">Login with Google</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+
+<!-- PRODUCTS
+================================================== -->
+<div id="showroom">
+  <div class="container">
+    <div class="row" id="tshirts">
+      <div class="col-xs-12" id="error-tshirts">        
+      </div>
+      <!-- tshirts container -->
+    </div>      
+  </div>  
+</div>
+
+<!-- FEATURES
+================================================== -->
+<div class="container" id="features">
+  <div class="row featurette">      
+    <div class="col-md-7">
+      <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" data-src="holder.js/500x500/text:Feature" alt="500x500">
+    </div>
+  </div>
+  <hr class="featurette-divider">
+  <div class="row featurette">
+    <div class="col-md-5">
+      <img class="featurette-image img-responsive" data-src="holder.js/500x500/text:Feature" alt="500x500">
+    </div>
+    <div class="col-md-7">
+      <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+      <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+    </div>
+  </div>      
+</div>
+
+<!-- FOOTER
+================================================== -->  
+<footer style="margin-top:80px;">
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-md-3">
+        <h3>ClickChic</h3>
+        <p>Descubre cosas sorprendentes, colecciona las cosas que te gustan, cómpralo todo en un mismo sitio.</p>
+      </div>
+
+      <div class="col-md-3">
+        <dl>
+          <dt>ClickChic</dt>
+          <dd>
+            <ul>
+              <li><a href="#">Qué es ClickChic</a></li>
+              <li><a href="#">ClickChic donde sea</a></li>
+              <li><a href="#">Hazte vendedor</a></li>
+            </ul>
+          </dd>
+        </dl>            
+      </div>
+
+      <div class="col-md-3">
+        <dl>
+          <dt>Ayuda</dt>
+          <dd>
+            <ul>
+              <li><a href="#">Preguntas frecuentes</a></li>
+              <li><a href="#">Términos de servicio</a></li>
+              <li><a href="#">Política de privacidad</a></li>
+              <li><a href="#">Contacta con nosotros</a></li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="col-md-3">
+        <dl>
+          <dt>Recursos</dt>
+          <dd>
+            <ul>
+              <li><a href="#">Apps para el móvil</a></li>
+              <li><a href="#">Usa nuestra API</a></li>
+              <li><a href="#">Consejos</a></li>
+            </ul>
+          </dd>
+        </dl>            
+      </div>
+      
+    </div>
+  </div>      
+</footer>
+
+<script type="text/javascript">
+  $(function(){
+    $.ajax({
+      url:"/api/products", 
+      type: "GET",
+      success: function(data, textStatus, xhr){
+        console.log("Data received " + data);
+        console.log("Status received " + xhr.status);
+        
+        var tshirts = data.tshirts;
+
+        if (tshirts.length == 0) {  
+
+          $("#error-tshirts").append("<p class='lead text-center'>There are not products added yet! If you are logged in, you can <a href='#''>add some product</a>!</p>");
+
+        } else {
+          $.each(tshirts, function(index, item) {
+            
+            $("#tshirts").append("<div class='col-xs-6 col-md-4'><a href='/products/"+item._id+"' class='thumbnail image-product' id='product' ><p class='product-title'>"+item.model+"</p><span class='click-me glyphicon glyphicon-shopping-cart' style='font-size:30px;'></span></a></div>");
+          });
+
+        }
+      },
+      error: function(){
+        alert("Server error after ajax request");
+      }
+    });
+  });
+</script>

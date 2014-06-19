@@ -1,0 +1,26 @@
+{
+  "name": "product_service",
+  "description": "API REST for ecommerce solution",
+  "author": "Roberto Marco Sánchez",
+  "license": "MIT",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "bcrypt-nodejs": "latest",
+    "connect-flash": "~0.1.1",
+    "ejs": "~0.8.5",
+    "ejs-locals": "^1.0.2",
+    "express": "~3.4.4",
+    "mongoose": "~3.8.1",
+    "passport": "~0.1.17",
+    "passport-facebook": "~1.0.2",
+    "passport-google-oauth": "~0.1.5",
+    "passport-local": "~0.1.6",
+    "passport-twitter": "~1.0.2",
+    "redis": "^0.10.3"
+  }
+}
