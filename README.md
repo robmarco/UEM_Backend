@@ -26,7 +26,6 @@ Más info en: [https://github.com/robmarco/UEM_Backend/tree/master/tshirts-node-
 $ mkdir db/data
 $ ./mongodb/mongod --dbpath db/data (ruta donde se encuentre el server mongo y donde se quiera almacenar la base de datos)
 ```
-
 2. Arrancar servidor Redis
 ```
 $ wget http://download.redis.io/redis-stable.tar.gz
@@ -37,27 +36,23 @@ $ make/make install
 $ cd redis
 $ redis-server
 ```
-
 3. Arrancar servidor Products (ProductsServer) - Por defecto esta en puerto 8080
 ```
 $ cd ProductService
 $ node server.js
 ```
-
 4. Arrancar servidor Delivery (DeliveryServer Server) - Por defecto esta en puerto 8081
 ```
 $ cd DeliveryService/Server
 $ node server-delivery.js
 ```
-
-5. Arrancar cliente Delivery (DeliveryServer Client)
-
-*Se usa módulo SimpleHTTPServer de python para levantar el cliente en el puerto deseado* (Probado únicamente en sistemas UNIX).
-
+5. Arrancar cliente Delivery (DeliveryServer Client). *Se usa módulo SimpleHTTPServer de python para levantar el cliente en el puerto deseado* (Probado únicamente en sistemas UNIX).
 ```
 $ cd DeliveryService/Client
 $ python -m SimpleHTTPServer 3000
 ```
+
+## A tener en cuenta
 
 Tanto el servidor ProductService como el DeliveryService tienen clientes web. Desde el navegador podemos acceder a http://localhost:8080 y a http://localhost:3000 para comprobar su funcionamiento.
 
