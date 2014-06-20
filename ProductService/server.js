@@ -6,8 +6,6 @@ var express = require('express'),
   flash    	= require('connect-flash');
 
 // Database connection
-
-// Domain for Database
 var domain = require('domain');
 var d = domain.create();
 
@@ -17,7 +15,6 @@ d.on('error', function(err){
 
 d.run(function(){
   mongoose.connect(config.db);
-
 });
 
 // Connection to database without domains
