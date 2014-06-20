@@ -9,9 +9,9 @@
 	* Crear un cluster de servidores web.
 
 2. Servidor REST en NodeJS para crear pedidos de tienda online. La integración del servicio se lleva a cabo mediante **ProductService** y **DeliveryService**. Funcionalidad:
-	* **ProductService**. API para carrito de la compra. Implementación de servicio de login usando proveedor de identidadRealizar login usando un proveedor de identidad (google,facebook, twitter,github): se asocia el pedido al usuario después de realizar un login usando passport. [http://www.sitepoint.com/passport-authentication-for-nodejs-applications/](http://www.sitepoint.com/passport-authentication-for-nodejs-applications/). INCLUYE CLIENTE WEB.
+	* **ProductService**. API para carrito de la compra. Implementación de servicio de login usando proveedor de identidadRealizar login usando un proveedor de identidad (google,facebook, twitter,github): se asocia el pedido al usuario después de realizar un login usando passport. [http://www.sitepoint.com/passport-authentication-for-nodejs-applications/](http://www.sitepoint.com/passport-authentication-for-nodejs-applications/). INCLUYE SERVIDOR Y CLIENTE WEB (renderizado con vistas ejs por el servidor).
 
-	* **DeliveryService**. Servidor/Client Delivery al que llegan los avisos de nuevos pedidos y se publican a una red de repartidores que los irán reclamando y marcando como entregados.
+	* **DeliveryService**. Servidor/Client Delivery al que llegan los avisos de nuevos pedidos y se publican a una red de repartidores que los irán reclamando y marcando como entregados. INCLUYE SERVIDOR Y CLIENTE WEB.
 
 ## Uso
 
