@@ -21,6 +21,8 @@
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
-    "redis": "^0.10.3"
+    "redis": "^0.10.3",
+    "request": "^2.36.0",
+    "usage": "^0.4.3"
   }
 }

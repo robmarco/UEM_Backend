@@ -13,7 +13,8 @@ angular.module("DeliveryApp")
 
 		// Receive a new Order
 		socket.on("delivery:order:neworder", function(data){
-			console.log("New Order: " + data);
+			console.log("Delivery Client - New Order: " + data);
+			console.log(data);
 
 			$scope.model.buffer.push({
 				timestamp: new Date(),

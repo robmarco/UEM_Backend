@@ -97,13 +97,20 @@
 	function closeKart() {
 		var user = "<%= user.id %>";
 
-		$.post('/api/karts/close', {user_id: user}, function(response){
-			console.log(response);
-			window.location.href = "/orders";
+		$.post('/api/karts/close', {user_id: user}, function(response){			
+			console.log("Closing Kart Response: " + response);
 		})
 		.fail (function(response){
 			console.log(response);
 		});
+
+		// Create Order in Delivery Server
+		var order_id = 'kart.'+user;
+		$.post('http://localhost:8081/api/order', {user_id: user, order: order_id}, function(response){
+			console.log("Creating new Order Response: " + response);
+			console.log("Params user_id %d order %d", user, order_id);			
+		});
+		window.location.href = "/orders";
 	};
 
 </script>

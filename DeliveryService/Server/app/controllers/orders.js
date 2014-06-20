@@ -3,14 +3,14 @@ var Order   = require('../models/order.js');
 var socket  = require('../services/socket.js');
 
 exports.createOrder = function(req, res){
-	console.log("Delivery Service - Creating Order after checkout");
-	console.log("POST with Params: req.body.order (%d), req.body.user_id (%d)", req.body.order, req.body.user_id);
-  	
-  	// Cross domain request. We need to set res.headers
+	// Cross domain request. We need to set res.headers
 	res.header('Access-Control-Allow-Origin', "*"); 
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST');
   	res.header('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept');
 
+	console.log("Delivery Service - Creating Order after checkout");
+	console.log("POST with Params: req.body.order (%d), req.body.user_id (%d)", req.body.order, req.body.user_id);
+  	
   	// Create a new Order with those params received
 	var order = new Order({
 		order:    req.body.order,

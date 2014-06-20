@@ -34,10 +34,12 @@ exports.add = function(req, res) {
  */
 exports.getAllProducts = function(req, res) {
     console.log("GET - /products");
+    var beginDBRequest = new Date();
     Tshirt.find(function(err, results){
-        if (!err)
+        if (!err){
+            console.log("Tshirt find - request duration " + (new Date() - beginDBRequest));
             res.send({ status: 'OK', tshirts: results });
-        else {
+        } else {
             res.statusCode = 500;
             res.send(res.statusCode, {error: err.message });
         }
@@ -48,8 +50,11 @@ exports.getAllProducts = function(req, res) {
 exports.getProductById = function(req, res) {
     console.log('GET - /products/:id');
 
+    var beginDBRequest = new Date();
+
     Tshirt.findById(req.params.id, function(err, tshirt) {
         if (tshirt) {
+            console.log("Tshirt find - request duration " + (new Date() - beginDBRequest));
             var hot_key = "hot." + req.params.id;
             addProductHoyKeyValue(hot_key);
             res.send( { status: 'OK', tshirt: tshirt});

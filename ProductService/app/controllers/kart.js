@@ -3,7 +3,10 @@ var Tshirt 	= require('../models/tshirt');
 var redis 	= require('redis'),
     client 	= redis.createClient();
 var ttl 	= 300; // 5 minutes for expiration time
-//var kart_id = 'kart.' + 1; // We are using IP as kart identifier. Care with that - IP conflicts?
+var request = require('request'); // For HTTP Request to DeliveryServer
+var http    = require('http');
+var uriDelivery = "http://localhost:8081/api/order";
+
 
 /*
  * Local Server Requests
@@ -158,6 +161,11 @@ exports.closeKart = function(req, res) {
                     if (!err) {
                         console.log("Kart Closed successfully - Kart %d created", kart._id);
                         client.expire(kart_id, 1);
+
+                        // Send New Order Request with POST Method to DeliveryServer 
+                        //console.log("Sending this Kart to DeliveryServer");
+                        //sendPostToDeliveryService(kart_id, req.body.user_id);
+
                         res.statusCode = 200;
                         res.send ({ status: 'OK', kart: kart });
                     } else {
@@ -179,8 +187,10 @@ exports.closeKart = function(req, res) {
 };
 
 exports.showAllClosedKarts = function(req, res) {
+    var beginDBRequest = new Date();
     Kart.find(function(err, karts){
         if (!err) {
+            console.log("Kart find - request duration " + (new Date() - beginDBRequest));
             res.statusCode = 200;
             res.send({ status: 'OK', karts: karts });
         } else {
@@ -188,4 +198,14 @@ exports.showAllClosedKarts = function(req, res) {
             res.send({ status: res.statusCode, error: 'Server error - Finding kart'});
         }
     });
-}
+};
+
+
+function sendPostToDeliveryService(orderId, userId) {
+
+    request.post(uriDelivery, { order: orderId, user_id: userId }, 
+        function(error, response, body){
+            console.log(body);
+    });
+    
+};

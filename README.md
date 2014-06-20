@@ -53,12 +53,19 @@ $ node server-delivery.js
 $ cd DeliveryService/Client
 $ python -m SimpleHTTPServer 3000
 ```
+- Paso 6. ¡A disfrutar!
+
+```
+**Tener en cuenta que el servidor ProductService envía una notificación de Orden nueva a DeliveryService. Por ello, es importante tener los dos servidores arriba para un correcto funcionamiento**.
+```
 
 ## Notas extras
 
 - Tanto el servidor ProductService como el DeliveryService tienen clientes web. Desde el navegador podemos acceder a http://localhost:8080 y a http://localhost:3000 para comprobar su funcionamiento.
 - Todos los servidores NodeJs tienen asociados un package.json. Por tanto, tal y como se especifica en el manual de uso, antes de arrancar los servicios se debe hacer un *npm install*.
 - A pesar de que **ProductService** incluye la lógica incluída en **tshirts-node-api-rest**, para simplificar se ha obviado el incluir tanto los domain como clusters en **ProductService**. Si se quisiese habilitar, habría que copiar las líneas de código relacionadas con el *require('cluster')*.
+- Las peticiones a los modelos TShirt y Kart (en ProductService) tienen log para saber cuanto dura la petición a la base de datos.
+- El server de ProductService devuelve el tiempo consumo de memoria.
 
 ## Licencia
 
