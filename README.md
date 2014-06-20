@@ -39,11 +39,13 @@ $ redis-server
 - Paso 3. Arrancar servidor Products (ProductsServer) - Por defecto esta en puerto 8080
 ```
 $ cd ProductService
+$ npm install
 $ node server.js
 ```
 - Paso 4. Arrancar servidor Delivery (DeliveryServer Server) - Por defecto esta en puerto 8081
 ```
 $ cd DeliveryService/Server
+$ npm install
 $ node server-delivery.js
 ```
 - Paso 5. Arrancar cliente Delivery (DeliveryServer Client). *Se usa módulo SimpleHTTPServer de python para levantar el cliente en el puerto deseado* (Probado únicamente en sistemas UNIX).
@@ -52,9 +54,11 @@ $ cd DeliveryService/Client
 $ python -m SimpleHTTPServer 3000
 ```
 
-## A tener en cuenta
+## Notas extras
 
-Tanto el servidor ProductService como el DeliveryService tienen clientes web. Desde el navegador podemos acceder a http://localhost:8080 y a http://localhost:3000 para comprobar su funcionamiento.
+- Tanto el servidor ProductService como el DeliveryService tienen clientes web. Desde el navegador podemos acceder a http://localhost:8080 y a http://localhost:3000 para comprobar su funcionamiento.
+- Todos los servidores NodeJs tienen asociados un package.json. Por tanto, tal y como se especifica en el manual de uso, antes de arrancar los servicios se debe hacer un *npm install*.
+- A pesar de que **ProductService** incluye la lógica incluída en **tshirts-node-api-rest**, para simplificar se ha obviado el incluir tanto los domain como clusters en **ProductService**. Si se quisiese habilitar, habría que copiar las líneas de código relacionadas con el *require('cluster')*.
 
 ## Licencia
 
