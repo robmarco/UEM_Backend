@@ -1,0 +1,31 @@
+<div class="masthead">
+  <h3 class="text-muted">Delivery System</h3>
+  <ul class="nav nav-justified">
+    <li><a href="#">Home</a></li>   
+    <li><a href="#">Settings</a></li>    
+    <li><a href="#">Logout</a></li>   
+    <li><a style="color: black;" href="">Welcome {{ model.nickname }}</a></li>
+  </ul>
+</div>
+
+<div class="row" style="margin-top: 30px;">
+	<div class="col-sm-12">
+		<div class="alert alert-success">
+			All delivery requests will be shown here!
+		</div>	
+
+		<div ng-repeat="msg in model.buffer">
+			<div class="col-sm-6">			
+				<div class="alert alert-info">
+					<span class="pull-right"><small> {{ msg.timestamp | date:'short' }}</small></span>
+					<p><strong>Received order:</strong> {{ msg.order }}		</p>
+					<p><strong>Status:</strong> {{ msg.status }}</p>
+				</div>	
+			</div>
+		</div>	
+	</div>
+</div>
+
+<div class="footer">
+  <p>© ClickChic 2014</p>
+</div>

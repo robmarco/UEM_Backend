@@ -83,7 +83,6 @@ exports.addProductToKart = function(req, res) {
             }
         });
     }
-
 };
 
 exports.deleteProductToKart = function(req, res) {

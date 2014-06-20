@@ -1,0 +1,28 @@
+<html ng-app="DeliveryApp">
+<head>
+	<title>Delivery Service</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1, width=device-width", user-scalable=no />        
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">  
+</head>
+
+<body>
+	<div class="container" ng-view></div>
+
+  <!-- Components --> 	
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+  <script type="text/javascript" src="bower_components/socket.io-client/socket.io.js"></script>
+  <!-- Controllers and services -->
+  <script type="text/javascript" src="scripts/DeliveryApp.js"></script>
+  <script type="text/javascript" src="scripts/services/socket.js"></script>
+  <script type="text/javascript" src="scripts/services/user.js"></script>
+  <script type="text/javascript" src="scripts/controllers/MainCtrl.js"></script>
+  <script type="text/javascript" src="scripts/controllers/LoginCtrl.js"></script>
+  <script type="text/javascript" src="scripts/controllers/DeliverCtrl.js"></script>
+</body>
+
+</html>
