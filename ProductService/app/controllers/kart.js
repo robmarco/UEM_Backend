@@ -15,6 +15,12 @@ exports.show = function(req, res) {
     });
 };
 
+exports.orders = function(req,res) {
+    res.render('kart/orders', {
+        user: req.user
+    });
+};
+
 /*
  * API Requests
  * ========================================== 
@@ -116,3 +122,70 @@ exports.deleteProductToKart = function(req, res) {
     }
 
 };
+
+exports.closeKart = function(req, res) {
+    console.log('POST - /karts/close');
+    var productsToKart = [];
+
+    if (req.body.user_id) {
+
+        var kart_id = 'kart.' + req.body.user_id;
+
+        client.hgetall(kart_id, function(err, products) {
+            
+            // First check if products returned in respnse. If not, send error and break
+            if(!products) {
+                res.statusCode = 204;
+                return res.send({ status: res.statusCode, error: 'Not found. Probably your sessions expired.' });
+            } 
+
+            // Check for errors
+            if(!err) {
+                for(var key in products) {
+                    var product = {
+                      id : key,
+                      amount: products[key]
+                    };
+                    productsToKart.push(product);
+                }
+
+                var kart = new Kart({
+                    user_id: req.params.user_id,
+                    kart: productsToKart
+                });
+
+                kart.save(function(err) {
+                    if (!err) {
+                        console.log("Kart Closed successfully - Kart %d created", kart._id);
+                        client.expire(kart_id, 1);
+                        res.statusCode = 200;
+                        res.send ({ status: 'OK', kart: kart });
+                    } else {
+                        console.log("Error server");
+                        res.statusCode = 500;
+                        res.send({ status: res.statusCode, error: 'Error server - Saving Kart'});                        
+                    }
+                });
+            } else {
+                res.statusCode = 500;
+                res.send({ status: res.statusCode, error: 'Error server - Getting Redis KEY'})
+            }
+        });
+    } else {
+        console.log('Error close kart - Param user_id needed.');
+        res.statusCode = 404;
+        res.send({status: res.statusCode, error: "Not user_id param detected"});
+    }
+};
+
+exports.showAllClosedKarts = function(req, res) {
+    Kart.find(function(err, karts){
+        if (!err) {
+            res.statusCode = 200;
+            res.send({ status: 'OK', karts: karts });
+        } else {
+            res.statusCode = 500;
+            res.send({ status: res.statusCode, error: 'Server error - Finding kart'});
+        }
+    });
+}

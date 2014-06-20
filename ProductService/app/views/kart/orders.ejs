@@ -1,0 +1,58 @@
+<% layout('../layout') -%>
+
+<div class="container" id="products">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<h2 class="text-center">Those are your Product Orders!</h2>
+            <p class="lead text-center">You can check your products order in realtime! This is updated when our delivers send your package!</p>
+
+            <hr />
+
+            <div class="panel panel-default" style="margin-top: 40px;">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">List of your orders <span id="itemsSize" class="pull-right">Current Status</span></h3>
+			  </div>
+			  <div class="panel-body">
+			    
+				<div class="row" id="kart">
+					<!-- KART CONTAINER -->
+				</div>
+
+			  </div>			  
+			  <div class="panel-footer">Total orders <span id="totalOrders" class="pull-right">0</span></div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			url: "/api/karts",
+			type: "GET",
+			success: function(data, textStatus, xhr){
+				console.log("Data received");
+                console.log(data);
+                console.log("Status received " + xhr.status);
+
+                var karts = data.karts;
+                var kart_div = $("#kart");
+
+                if (karts.length == 0){
+                	kart_div.append("<div class='col-sm-12'><p>No products added yet!</p></div><div class='clearfix'></div>");
+                } else {
+
+                	$.each(karts, function(index, kart){
+                		kart_div.append('<div class="col-sm-10"><dl><dt>ID: '+kart._id+'</a></dt><dd>Created at: '+kart.created_at+'<br></dd></dl></div><dv class="col-sm-2 text-right">pending</dv>');	
+                	});
+                }
+
+                $("#totalOrders").text(karts.length);
+			},
+			error: function(){
+
+			}
+		});
+	});
+</script>

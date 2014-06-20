@@ -13,7 +13,6 @@ var kartSchema = new Schema({
         }
     ],
     user_id: { type: String },
-    status: {type: String, default: "pending" },
     created_at: { type: Date, default: Date.now }
 });
 

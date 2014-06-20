@@ -19,6 +19,7 @@ module.exports = function(app, passport) {
 
 	var kartCtrl = require('../app/controllers/kart');
 	app.get('/shopcart', isLoggedIn, kartCtrl.show);
+	app.get('/orders', isLoggedIn, kartCtrl.orders);
 
 	// =====================================
 	// API PRODUCTS 	 ===================
@@ -37,9 +38,8 @@ module.exports = function(app, passport) {
     app.get('/api/kart/:user_id', kartCtrl.showKart);
 	app.post('/api/kart', kartCtrl.addProductToKart);
     app.delete('/api/kart/:user_id/:id', kartCtrl.deleteProductToKart);
-    //app.post('/api/closekart/:user_id', kartCtrl.closeKart);
-    //app.get('/api/')
-    //
+    app.post('/api/karts/close', kartCtrl.closeKart);
+    app.get('/api/karts', kartCtrl.showAllClosedKarts);
 
 	// =====================================
 	// GOOGLE ROUTES =======================

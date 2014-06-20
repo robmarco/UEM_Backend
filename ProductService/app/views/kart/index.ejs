@@ -45,7 +45,7 @@
                 var kart_div = $("#kart");
 
                 if (products.length == 0) {
-                	kart_div.append("<div class='col-sm-12'><p>No products added yet!</p></div><div class='clearfix'></div>")
+                	kart_div.append("<div class='col-sm-12'><p>No products added yet!</p></div><div class='clearfix'></div>");
                 } else {
 
                 	var totalAmount = 0;
@@ -75,6 +75,10 @@
 				alert("Server error");
 			}
 		});
+
+		$("#checkout").on("click", function(){
+			closeKart();
+		});
 	});
 
 	function removeItem() {
@@ -87,6 +91,18 @@
 				console.log(data);
 				window.location.href = "/shopcart";
 			}
+		});
+	};
+
+	function closeKart() {
+		var user = "<%= user.id %>";
+
+		$.post('/api/karts/close', {user_id: user}, function(response){
+			console.log(response);
+			window.location.href = "/orders";
+		})
+		.fail (function(response){
+			console.log(response);
 		});
 	};
 
